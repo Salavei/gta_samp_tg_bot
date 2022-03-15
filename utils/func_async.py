@@ -10,7 +10,7 @@ from keyboards.default.markup import keyboard_move
 async def screenshots_(message: types.Message):
     pyautogui.press('f8')
     time.sleep(1)
-    dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/'
+    dirname = SCREENSDIR
     dir_screen = os.listdir(dirname)
     files = os.listdir(dirname + sorted(dir_screen, reverse=True)[0])
     await bot.send_photo(chat_id=message.chat.id,
@@ -31,18 +31,18 @@ async def reconnect(message: types.Message):
     pyautogui.write('/rec')
     keyboard.send('enter')
     ok = True
-    dd = open('/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/chatlog.txt', 'w', encoding='cp1251')
+    dd = open(CHATLOG, 'w', encoding='cp1251')
     dd.close()
     await message.answer(text='Сделали реконнек')
     while ok:
         word = 'сервере есть инвентарь, используйте клавишу'
-        with open('/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/chatlog.txt', 'r',
+        with open(CHATLOG, 'r',
                   encoding='cp1251') as f:
             if word in f.read():
                 ok = False
                 keyboard.send('f8')
                 time.sleep(1)
-                dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/'
+                dirname = SCREENSDIR
                 dir_screen = os.listdir(dirname)
                 files = os.listdir(dirname + sorted(dir_screen, reverse=True)[0])
                 time.sleep(5)
@@ -56,7 +56,7 @@ async def reconnect(message: types.Message):
 
 async def login_info(message: types.Message):
     word = 'Успешный вход. Приятной игры на сервере :)'
-    with open('/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/chatlog.txt', 'r',
+    with open(CHATLOG, 'r',
               encoding='cp1251') as f:
         if word in f.read():
             await message.answer(text='Подлючились к серверу')

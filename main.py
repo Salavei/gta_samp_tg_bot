@@ -5,6 +5,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 env = environ.Env()
 environ.Env.read_env()
+CHATLOG = env('CHATLOG')
+SCREENSDIR = env('SCREENSDIR')
 TOKEN = env('TOKEN')
 logging.basicConfig(level=logging.INFO)
 storage = MemoryStorage()
