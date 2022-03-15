@@ -4,20 +4,32 @@ import keyboard
 import os
 import time
 import pyautogui
+from keyboards.default.markup import keyboard_move
+
+
+async def screenshots_(message: types.Message):
+    pyautogui.press('f8')
+    time.sleep(1)
+    dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/'
+    dir_screen = os.listdir(dirname)
+    files = os.listdir(dirname + sorted(dir_screen, reverse=True)[0])
+    await bot.send_photo(chat_id=message.chat.id,
+                         photo=open(f"{dirname}/{sorted(dir_screen, reverse=True)[0]}/{sorted(files, reverse=True)[0]}",
+                                    'rb'))
+
+
+async def move(message: types.Message):
+    await message.answer('Управление персонажем', reply_markup=keyboard_move)
 
 
 async def send_screen(message: types.Message):
-    pyautogui.press('f8')
-    time.sleep(1)
-    dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/15 марта 2022г/'
-    files = os.listdir(dirname)
-    await bot.send_photo(chat_id=message.chat.id, photo=open(dirname + sorted(files, reverse=True)[0], 'rb'))
+    await screenshots_(message)
 
 
 async def reconnect(message: types.Message):
-    pyautogui.press('f6')
+    keyboard.send('f6')
     pyautogui.write('/rec')
-    pyautogui.press('enter')
+    keyboard.send('enter')
     ok = True
     dd = open('/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/chatlog.txt', 'w', encoding='cp1251')
     dd.close()
@@ -28,14 +40,18 @@ async def reconnect(message: types.Message):
                   encoding='cp1251') as f:
             if word in f.read():
                 ok = False
-                pyautogui.press('f8')
+                keyboard.send('f8')
                 time.sleep(1)
-                dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/15 марта 2022г/'
-                files = os.listdir(dirname)
+                dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/'
+                dir_screen = os.listdir(dirname)
+                files = os.listdir(dirname + sorted(dir_screen, reverse=True)[0])
                 time.sleep(5)
-                pyautogui.press('enter')
+                keyboard.send('enter')
                 await bot.send_photo(chat_id=message.chat.id,
-                                     photo=open(dirname + sorted(files, reverse=True)[0], 'rb'))
+                                     photo=open(
+                                         f"{dirname}/{sorted(dir_screen, reverse=True)[0]}/{sorted(files, reverse=True)[0]}",
+                                         'rb'))
+
 
 
 async def login_info(message: types.Message):
@@ -55,10 +71,7 @@ async def open_box(message: types.Message):
     pyautogui.click()
     pyautogui.press('esc')
     pyautogui.press('f8')
-    time.sleep(1)
-    dirname = '/Users/andrewsalavei/Documents/GTA San Andreas User Files/SAMP/arizona/screens/15 марта 2022г/'
-    files = os.listdir(dirname)
-    await bot.send_photo(chat_id=message.chat.id, photo=open(dirname + sorted(files, reverse=True)[0], 'rb'))
+    await screenshots_(message)
 
 
 async def quitgame(message: types.Message):
@@ -72,11 +85,15 @@ async def w(message: types.Message):
     keyboard.press("ц")
     time.sleep(1)
     keyboard.release("ц")
+    time.sleep(1)
+    await screenshots_(message)
     await message.answer(text='w')
 
 
 async def enter(message: types.Message):
     pyautogui.press("enter")
+    time.sleep(1)
+    await screenshots_(message)
     await message.answer(text='enter')
 
 
@@ -85,6 +102,7 @@ async def s(message: types.Message):
     keyboard.press("ц")
     time.sleep(1)
     keyboard.release("ц")
+    await screenshots_(message)
     await message.answer(text='s')
 
 
@@ -93,6 +111,7 @@ async def a(message: types.Message):
     keyboard.press("ц")
     time.sleep(1)
     keyboard.release("ц")
+    await screenshots_(message)
     await message.answer(text='a')
 
 
@@ -101,34 +120,51 @@ async def d(message: types.Message):
     keyboard.press("ц")
     time.sleep(1)
     keyboard.release("ц")
+    await screenshots_(message)
     await message.answer(text='d')
+
+
+async def cam(message: types.Message):
+    await screenshots_(message)
+    pyautogui.moveTo(572, 450)
+
+
+async def cam1(message: types.Message):
+    await screenshots_(message)
+    pyautogui.moveTo(576, 300)
 
 
 async def alt(message: types.Message):
     pyautogui.press("command")
+    await screenshots_(message)
     await message.answer(text='command')
 
 
 async def n(message: types.Message):
     pyautogui.press("n")
+    await screenshots_(message)
     await message.answer(text='n')
 
 
 async def i(message: types.Message):
     pyautogui.press("i")
+    await screenshots_(message)
     await message.answer(text='i')
 
 
 async def esc(message: types.Message):
     pyautogui.press("esc")
+    await screenshots_(message)
     await message.answer(text='esc')
 
 
 async def shift(message: types.Message):
     pyautogui.press("shift")
+    await screenshots_(message)
     await message.answer(text='shift')
 
 
 async def space(message: types.Message):
     pyautogui.press("space")
+    await screenshots_(message)
     await message.answer(text='space')
